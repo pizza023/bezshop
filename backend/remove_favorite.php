@@ -7,11 +7,12 @@ if(!isset($_SESSION['user_id'])){
     exit;
 }
 
-$id = $_GET['id'];
+$id = (int)$_GET['id'];
+$uid = $_SESSION['user_id'];
 
-// ลบรายการโปรด
-mysqli_query($conn,"DELETE FROM favorites WHERE id=$id");
+mysqli_query($conn,"
+    DELETE FROM favorites
+    WHERE id=$id AND user_id=$uid
+");
 
-// 🔁 กลับไปหน้า favorites ที่ถูกต้อง
 header("Location: ../frontend/favorites.php");
-exit;
